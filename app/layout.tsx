@@ -4,8 +4,10 @@ import { Inter } from 'next/font/google'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { ThemeProvider } from '@/components/theme-provider'
+import { TunnelToolbar } from '@tunnel/nextjs'
 
 import './globals.css'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -33,6 +35,11 @@ export default function RootLayout({
         >
           <Header />
           <main className='grow'>{children}</main>
+          {process.env.NODE_ENV !== 'development' && (
+            <TunnelToolbar
+              projectId={process.env.NEXT_PUBLIC_TUNNEL_PROJECT_ID as string}
+            />
+          )}
           <Footer />
         </ThemeProvider>
       </body>
